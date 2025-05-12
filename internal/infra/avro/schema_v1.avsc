@@ -1,0 +1,10 @@
+{
+  "type": "record",
+  "name": "Notification",
+  "namespace": "com.github.z6wdc.notification",
+  "fields": [
+    { "name": "id", "type": "string" },
+    { "name": "userId", "type": "int" },
+    { "name": "message", "type": "string" }
+  ]
+}
