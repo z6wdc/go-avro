@@ -13,10 +13,9 @@ func TestNotificationSerializer(t *testing.T) {
 	// Specify the path to the Avro schema
 	schemaPath := filepath.Join(test.GetProjectRoot(), "internal", "infra", "avro", "schema_v1.avsc")
 
-	// Create a serializer
-	serializer, err := avro.NewNotificationSerializer(schemaPath)
+	c, err := avro.NewNotificationCodec(schemaPath)
 	if err != nil {
-		t.Fatalf("failed to create serializer: %v", err)
+		t.Fatalf("failed to create codec: %v", err)
 	}
 
 	// Input data for testing
@@ -27,7 +26,7 @@ func TestNotificationSerializer(t *testing.T) {
 	}
 
 	// Encode the input data into Avro binary
-	data, err := serializer.Encode(input)
+	data, err := c.Encode(input)
 	if err != nil {
 		t.Fatalf("Encode failed: %v", err)
 	}
@@ -37,7 +36,7 @@ func TestNotificationSerializer(t *testing.T) {
 	}
 
 	// Decode the binary back into a Notification entity
-	output, err := serializer.Decode(data)
+	output, err := c.Decode(data)
 	if err != nil {
 		t.Fatalf("Decode failed: %v", err)
 	}
