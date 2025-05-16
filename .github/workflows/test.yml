@@ -2,11 +2,12 @@ name: Go Test
 
 on:
   pull_request:
-    branches:
-      - main
+    branches: [main]
+  push:
+    branches: [main]
 
 jobs:
-  test:
+  cli-test:
     runs-on: ubuntu-latest
 
     steps:
@@ -16,20 +17,13 @@ jobs:
       - name: Set up Go
         uses: actions/setup-go@v5
         with:
-          go-version: '1.24.2'
+          go-version: '1.22'
 
-      - name: Cache Go modules
-        uses: actions/cache@v4
-        with:
-          path: |
-            ~/go/pkg/mod
-            ~/.cache/go-build
-          key: ${{ runner.os }}-go-${{ hashFiles('**/go.sum') }}
-          restore-keys: |
-            ${{ runner.os }}-go-
-
-      - name: Download dependencies
+      - name: Install dependencies
         run: go mod download
 
-      - name: Run tests
-        run: go test -v ./...
+      - name: Build go-avro CLI binary
+        run: go build -o go-avro ./main.go
+
+      - name: Run CLI integration tests
+        run: go test ./test -v
