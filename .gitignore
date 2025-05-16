@@ -1,1 +1,4 @@
 go-avro
+
+testdata/*.avro
+testdata/*.json
