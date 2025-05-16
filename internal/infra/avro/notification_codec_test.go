@@ -6,12 +6,12 @@ import (
 
 	"github.com/z6wdc/go-avro/internal/entity"
 	"github.com/z6wdc/go-avro/internal/infra/avro"
-	"github.com/z6wdc/go-avro/internal/test"
+	"github.com/z6wdc/go-avro/pkg/util"
 )
 
 func TestNotificationSerializer(t *testing.T) {
 	// Specify the path to the Avro schema
-	schemaPath := filepath.Join(test.GetProjectRoot(), "internal", "infra", "avro", "schema_v1.avsc")
+	schemaPath := filepath.Join(util.GetProjectRoot(), "internal", "infra", "avro", "schema_v1.avsc")
 
 	c, err := avro.NewNotificationCodec(schemaPath)
 	if err != nil {
